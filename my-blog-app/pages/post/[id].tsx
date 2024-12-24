@@ -1,36 +1,30 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import axios from 'axios';
-import { Spin, Alert } from 'antd';
 
-const PostDetail = () => {
+interface Post {
+  id: number;
+  title: string;
+  body: string;
+  user_id: number;
+}
+
+const PostDetail: React.FC = () => {
+  const [post, setPost] = useState<Post | null>(null);
   const router = useRouter();
   const { id } = router.query;
-  const [post, setPost] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (id) {
-      const fetchPost = async () => {
-        setLoading(true);
-        setError(null);
-        try {
-          const response = await axios.get(`https://gorest.co.in/public/v1/posts/${id}`);
-          setPost(response.data.data);
-        } catch (err) {
-          setError('Failed to fetch post');
-        } finally {
-          setLoading(false);
-        }
-      };
-
-      fetchPost();
+      axios.get(`https://gorest.co.in/public/v2/posts/${id}`)
+        .then(response => {
+          setPost(response.data);
+        })
+        .catch(error => {
+          console.error('Error fetching post:', error);
+        });
     }
   }, [id]);
-
-  if (loading) return <Spin tip="Loading..." />;
-  if (error) return <Alert message={error} type="error" />;
 
   return (
     <div>
