@@ -7,7 +7,7 @@ interface CreatePostProps {
   userId: number;
 }
 
-const CreatePost: React.FC<CreatePostProps> = ({ token, userId }) => {
+const CreatePost: React.FC<CreatePostProps> = ({ userId }) => {
   const [loading, setLoading] = useState(false);
 
 const onFinish = async (values: { title: string; body: string; }) => {
@@ -19,7 +19,7 @@ const onFinish = async (values: { title: string; body: string; }) => {
         { headers: { Authorization: `Bearer 545edee0e291e7948c3d714f0c3fc8143011fd476d317b9e1133be3cd0341316` } }
       );
       message.success('Post created successfully');
-    } catch (err) {
+    } catch (error) {
       message.error('Failed to create post');
     } finally {
       setLoading(false);

@@ -8,7 +8,7 @@ import UpdatePost from '../components/UpdatePost';
 import DeletePost from '../components/DeletePost';
 
 export default function Home() {
-  const [name, setName] = useState('');
+  const [, setName] = useState('');
   const [token, setToken] = useState('');
   const [showWelcomeDialog, setShowWelcomeDialog] = useState(true);
 
@@ -29,7 +29,12 @@ export default function Home() {
       {!showWelcomeDialog && (
         <>
           <PostList />
+          <br/>
           <CreatePost token={token} userId={0} />
+          <br/>
+          <UpdatePost token={token} postId={0} />
+          <br/>
+          <DeletePost token={token} postId={0} onDelete={() => console.log('Post deleted')} />
         </>
       )}
       <footer className="mt-12 text-center">

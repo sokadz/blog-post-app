@@ -10,7 +10,7 @@ import { Switch } from 'antd';
 import { useThemeSwitcher, ThemeSwitcherProvider } from 'react-css-theme-switcher';
 
 const Home: React.FC = () => {
-  const [name, setName] = useState('');
+  const [, setName] = useState('');
   const [token, setToken] = useState('');
   const [showWelcomeDialog, setShowWelcomeDialog] = useState(true);
 
